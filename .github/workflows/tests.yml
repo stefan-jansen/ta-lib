@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.10"]
     steps:
     - name: Checkout TA-Lib
       uses: actions/checkout@v3
@@ -84,4 +84,4 @@ jobs:
         #flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Unittests with tox & pytest
       run: |
-        tox -e py38
+        tox -e ci_tests
