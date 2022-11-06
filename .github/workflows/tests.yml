@@ -40,8 +40,8 @@ jobs:
         brew install freetype pkg-config gcc openssl hdf5 ta-lib c-blosc
 
     - name: Install TA-Lib Windows
-      if: ${{ matrix.os == 'windows-latest' }}
       uses: ilammy/msvc-dev-cmd@v1
+      if: ${{ matrix.os == 'windows-latest' }}
       run: |
         powershell -Command "(New-Object Net.WebClient).DownloadFile('http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-msvc.zip', 'ta-lib-0.4.0-msvc.zip')"
         powershell -Command "Add-Type -AssemblyName System.IO.Compression.FileSystem;[System.IO.Compression.ZipFile]::ExtractToDirectory('ta-lib-0.4.0-msvc.zip', 'C:\')"
