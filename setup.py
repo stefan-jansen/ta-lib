@@ -1,22 +1,23 @@
 #!/usr/bin/env python
 
-import sys
 import os
-import os.path
+import sys
 import warnings
 
 try:
     from setuptools import setup, Extension
     from setuptools.dist import Distribution
+
     requires = {
-        "install_requires": ["numpy"],
-        "setup_requires": ["numpy"]
+        "install_requires": ["numpy <1.23"],
+        "setup_requires": ["numpy <1.23"]
     }
 except ImportError:
     from distutils.core import setup
     from distutils.dist import Distribution
     from distutils.extension import Extension
-    requires = {"requires": ["numpy"]}
+
+    requires = {"requires": ["numpy <1.23"]}
 
 lib_talib_name = 'ta_lib'  # the underlying C library's name
 
@@ -62,6 +63,7 @@ if not platform_supported:
 
 try:
     from Cython.Distutils import build_ext as cython_build_ext
+
     has_cython = True
 except ImportError:
     has_cython = False
@@ -126,60 +128,19 @@ class LazyBuildExtCommandClass(dict):
         return build_ext
 
 
-cmdclass = LazyBuildExtCommandClass()
-
 ext_modules = [
     Extension(
-        'talib._ta_lib',
-        ['talib/_ta_lib.pyx' if has_cython else 'talib/_ta_lib.c'],
+        name='talib._ta_lib',
+        sources=['src/talib/_ta_lib.pyx'],
         include_dirs=include_dirs,
         library_dirs=library_dirs,
         libraries=[lib_talib_name],
         runtime_library_dirs=[] if sys.platform == 'win32' else library_dirs)
 ]
 
-from os import path
-this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
-
 setup(
-    name='TA-Lib',
-    version='0.4.25',
-    description='Python wrapper for TA-Lib',
-    long_description=long_description,
-    long_description_content_type='text/markdown',
-    author='John Benediktsson',
-    author_email='mrjbq7@gmail.com',
-    url='http://github.com/mrjbq7/ta-lib',
-    download_url='https://github.com/mrjbq7/ta-lib/releases',
-    license='BSD',
-    classifiers=[
-        "License :: OSI Approved :: BSD License",
-        "Development Status :: 5 - Production/Stable",
-        "Operating System :: Unix",
-        "Operating System :: POSIX",
-        "Operating System :: MacOS :: MacOS X",
-        "Operating System :: Microsoft :: Windows",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Cython",
-        "Topic :: Office/Business :: Financial",
-        "Topic :: Scientific/Engineering :: Mathematics",
-        "Intended Audience :: Developers",
-        "Intended Audience :: Science/Research",
-        "Intended Audience :: Financial and Insurance Industry",
-    ],
-    packages=['talib'],
     ext_modules=ext_modules,
-    cmdclass=cmdclass,
+    cmdclass=LazyBuildExtCommandClass(),
     **requires)
+
+
