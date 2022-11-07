@@ -22,6 +22,8 @@ except ImportError:
 lib_talib_name = 'ta_lib'  # the underlying C library's name
 
 platform_supported = False
+print("Platform: ", sys.platform)
+print("Environment: ", [e for e in os.environ if not e.startswith('_')])
 
 if any(s in sys.platform for s in ['darwin', 'linux', 'bsd', 'sunos']):
     platform_supported = True
@@ -53,10 +55,12 @@ elif sys.platform == "win32":
 if 'TA_INCLUDE_PATH' in os.environ:
     paths = os.environ['TA_INCLUDE_PATH'].split(os.pathsep)
     include_dirs.extend(path for path in paths if path)
+print(f'include_dirs: {include_dirs}')
 
 if 'TA_LIBRARY_PATH' in os.environ:
     paths = os.environ['TA_LIBRARY_PATH'].split(os.pathsep)
     library_dirs.extend(path for path in paths if path)
+    print(f'library_dirs: {library_dirs}')
 
 if not platform_supported:
     raise NotImplementedError(sys.platform)
