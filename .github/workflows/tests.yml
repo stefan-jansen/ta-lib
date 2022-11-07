@@ -73,14 +73,11 @@ jobs:
 
       - name: Install TA-Lib Python
         run: |
-          env
+          python -c 'import sys;print(sys.version);print(sys.platform);print(f"{sys.maxsize > 2**32}")'
           python -VV
           python -m pip install --upgrade pip setuptools wheel
           pip install tox tox-gh-actions
           pip install -e .[test]
-        env:
-          TA_INCLUDE_PATH: C:\ta-lib\c\include
-          TA_LIBRARY_PATH: C:\ta-lib\c\lib
 
       - name: Lint with flake8
         run: |
