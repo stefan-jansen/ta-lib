@@ -137,7 +137,8 @@ ext_modules = [
         include_dirs=include_dirs,
         library_dirs=library_dirs,
         libraries=[lib_talib_name],
-        runtime_library_dirs=[] if sys.platform == 'win32' else library_dirs)
+        runtime_library_dirs=[] if sys.platform == 'win32' else library_dirs,
+        define_macros=[("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")])
 ]
 
 setup(
