@@ -79,8 +79,8 @@ jobs:
           pip install tox tox-gh-actions
           pip install -e .[test]
         env:
-          TA_INCLUDE_PATH: "C:\ta-lib\c\include"
-          TA_LIBRARY_PATH: "C:\ta-lib\c\lib"
+          TA_INCLUDE_PATH: C:\ta-lib\c\include
+          TA_LIBRARY_PATH: C:\ta-lib\c\lib
 
       - name: Lint with flake8
         run: |
