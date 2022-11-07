@@ -1,6 +1,7 @@
 #cython: language_level=2
 
-cdef extern from "ta-lib/ta_defs.h":
+# cdef extern from "ta-lib/ta_defs.h":
+cdef extern from "ta_defs.h":
     ctypedef int TA_RetCode
     TA_RetCode TA_SUCCESS = 0
     TA_RetCode TA_LIB_NOT_INITIALIZE = 1
