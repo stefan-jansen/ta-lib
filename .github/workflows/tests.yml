@@ -70,11 +70,11 @@ jobs:
           popd
           popd
           del ta-lib-0.4.0-msvc.zip
-          cd C:\ta-lib\
-          ls  -r -inc ta_defs.h
 
       - name: Install TA-Lib Python
         run: |
+          echo $TA_LIBRARY_PATH
+          ls $TA_LIBRARY_PATH
           python -VV
           python -m pip install --upgrade pip setuptools wheel
           pip install tox tox-gh-actions
