@@ -55,12 +55,27 @@ elif sys.platform == "win32":
 if 'TA_INCLUDE_PATH' in os.environ:
     paths = os.environ['TA_INCLUDE_PATH'].split(os.pathsep)
     include_dirs.extend(path for path in paths if path)
-print(f'include_dirs: {include_dirs}')
+from pathlib import Path
+
+for dir in include_dirs:
+    if Path(dir).exists():
+        print("\nInclude dir: ", dir)
+        for f in Path(dir).iterdir():
+            print("  ", f.name)
+
+
+
+
 
 if 'TA_LIBRARY_PATH' in os.environ:
     paths = os.environ['TA_LIBRARY_PATH'].split(os.pathsep)
     library_dirs.extend(path for path in paths if path)
-    print(f'library_dirs: {library_dirs}')
+
+for dir in library_dirs:
+    if Path(dir).exists():
+        print("\nLibrary dir: ", dir)
+        for f in Path(dir).iterdir():
+            print("  ", f.name)
 
 if not platform_supported:
     raise NotImplementedError(sys.platform)
