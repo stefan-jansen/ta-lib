@@ -73,6 +73,7 @@ jobs:
 
       - name: Install TA-Lib Python
         run: |
+          env
           echo $TA_LIBRARY_PATH
           ls $TA_LIBRARY_PATH
           python -VV
