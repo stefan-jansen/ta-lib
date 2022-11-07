@@ -70,7 +70,8 @@ jobs:
           popd
           popd
           del ta-lib-0.4.0-msvc.zip
-          find /c/ -name "ta_defs.h"
+          cd C:\
+          ls  -r -inc ta_defs.h
 
       - name: Install TA-Lib Python
         run: |
