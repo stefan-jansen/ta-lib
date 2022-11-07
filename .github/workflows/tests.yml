@@ -73,7 +73,9 @@ jobs:
 
       - name: Install TA-Lib Python
         run: |
-          python -c 'import sys;print(sys.version);print(sys.platform);print(f"{sys.maxsize > 2**32}")'
+          python -c 'import sys;print(sys.version)'
+          python -c 'import sys;print(sys.platform)'
+          python -c 'import sys;print(sys.maxsize > 2**32)'
           python -VV
           python -m pip install --upgrade pip setuptools wheel
           pip install tox tox-gh-actions
