@@ -13,12 +13,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
+#        os: [ubuntu-latest]
 #        os: [ubuntu-latest, macos-latest]
-#        os: [ windows-latest ]
+        os: [ windows-latest ]
 #        platform: [ x86, x64 ]
 #        python-version: [ 3.7, 3.8, 3.9, "3.10" ]
-        python-version: [ 3.9, "3.10" ]
+#        python-version: [ 3.9, "3.10" ]
+        python-version: [ 3.9 ]
     steps:
       - name: Checkout TA-Lib
         uses: actions/checkout@v3
@@ -76,9 +77,7 @@ jobs:
 
       - name: Install TA-Lib Python
         run: |
-          python -c 'import sys;print(sys.version)'
-          python -c 'import sys;print(sys.platform)'
-          python -c 'import sys;print(sys.maxsize > 2**32)'
+          ls C:\ta-lib
           python -VV
           python -m pip install --upgrade pip setuptools wheel
           pip install tox tox-gh-actions

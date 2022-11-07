@@ -48,7 +48,7 @@ if any(s in sys.platform for s in ['darwin', 'linux', 'bsd', 'sunos']):
 
 elif sys.platform == "win32":
     platform_supported = True
-    lib_talib_name = 'ta_libc_cdr'
+    # lib_talib_name = 'ta_libc_cdr'
     include_dirs = [r"c:\ta-lib\c\include"]
     library_dirs = [r"c:\ta-lib\c\lib"]
 
@@ -62,10 +62,6 @@ for dir in include_dirs:
         print("\nInclude dir: ", dir)
         for f in Path(dir).iterdir():
             print("  ", f.name)
-
-
-
-
 
 if 'TA_LIBRARY_PATH' in os.environ:
     paths = os.environ['TA_LIBRARY_PATH'].split(os.pathsep)
