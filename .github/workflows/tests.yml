@@ -77,7 +77,8 @@ jobs:
 
       - name: Install TA-Lib Python
         run: |
-          ls C:\ta-lib
+          ls C:\ta-lib\c\lib
+          ls C:\ta-lib\c\include
           python -VV
           python -m pip install --upgrade pip setuptools wheel
           pip install tox tox-gh-actions
