@@ -143,4 +143,6 @@ ext_modules = [
 setup(
     ext_modules=ext_modules,
     cmdclass=LazyBuildExtCommandClass(),
+    package_data={'talib': ['*.pxd', '*.pyx', '*.c', '*.h'],
+                  'src/talib': ['*.pxd', '*.pyx', '*.c', '*.h']},
     **requires)
