@@ -14,8 +14,9 @@ jobs:
       fail-fast: false
       matrix:
         #        os: [ubuntu-latest, macos-latest]
-        os: [ windows-2019_x86 ]
-        python-version: [ 3.7, 3.8, 3.9, "3.10" ]
+        os: [ windows-2019_x86, windows-2019_x64 ]
+#        python-version: [ 3.7, 3.8, 3.9, "3.10" ]
+        python-version: [ 3.9, "3.10" ]
     steps:
       - name: Checkout TA-Lib
         uses: actions/checkout@v3
