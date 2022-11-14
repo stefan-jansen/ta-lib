@@ -9,23 +9,24 @@ try:
     from setuptools.dist import Distribution
 
     requires = {
-        "install_requires": ["numpy <1.23"],
-        "setup_requires": ["numpy <1.23"]
+        'install_requires': ['numpy <1.23'],
+        'setup_requires': ['numpy <1.23']
     }
 except ImportError:
     from distutils.core import setup
     from distutils.dist import Distribution
     from distutils.extension import Extension
 
-    requires = {"requires": ["numpy <1.23"]}
+    requires = {'requires': ['numpy <1.23']}
 
 lib_talib_name = 'ta_lib'  # the underlying C library's name
 
 platform_supported = False
-print("Platform: ", sys.platform)
-print("Environment: ", [e for e in os.environ if not e.startswith('_')])
+print('Platform: ', sys.platform)
+print('Environment: ', [e for e in os.environ if not e.startswith('_')])
 
 if any(s in sys.platform for s in ['darwin', 'linux', 'bsd', 'sunos']):
+    print('Platform supported')
     platform_supported = True
     include_dirs = [
         '/usr/include',
@@ -46,11 +47,11 @@ if any(s in sys.platform for s in ['darwin', 'linux', 'bsd', 'sunos']):
         '/opt/homebrew/opt/ta-lib/lib',
     ]
 
-elif sys.platform == "win32":
+elif sys.platform == 'win32':
     platform_supported = True
     # lib_talib_name = 'ta_libc_cdr'
-    include_dirs = [r"c:\ta-lib\c\include"]
-    library_dirs = [r"c:\ta-lib\c\lib"]
+    include_dirs = [r'c:\ta-lib\c\include']
+    library_dirs = [r'c:\ta-lib\c\lib']
 
 if 'TA_INCLUDE_PATH' in os.environ:
     paths = os.environ['TA_INCLUDE_PATH'].split(os.pathsep)
@@ -93,7 +94,7 @@ class LazyBuildExtCommandClass(dict):
 
     def __setitem__(self, key, value):
         if key == 'build_ext':
-            raise AssertionError("build_ext overridden!")
+            raise AssertionError('build_ext overridden!')
         super(LazyBuildExtCommandClass, self).__setitem__(key, value)
 
     def __getitem__(self, key):
@@ -138,7 +139,7 @@ ext_modules = [
         library_dirs=library_dirs,
         libraries=[lib_talib_name],
         runtime_library_dirs=[] if sys.platform == 'win32' else library_dirs,
-        define_macros=[("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")]
+        # define_macros=[('NPY_NO_DEPRECATED_API',  # 'NPY_1_7_API_VERSION')]
     )
 ]
 

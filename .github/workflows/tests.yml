@@ -86,7 +86,7 @@ jobs:
           python -VV
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install tox tox-gh-actions
-          python -m pip install --no-cache-dir --global-option build --global-option --force  .[test]
+          python -m pip install --no-cache-dir  --force  .[test]
 
       - name: Lint with flake8
         run: |
