@@ -13,13 +13,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-#        os: [ubuntu-latest, macos-latest]
-#        os: [ windows-latest ]
+        os: [ubuntu-latest, macos-latest, windows-latest ]
 #        platform: [ x86, x64 ]
-#        python-version: [ 3.7, 3.8, 3.9, "3.10" ]
+        python-version: [ 3.7, 3.8, 3.9, "3.10" ]
 #        python-version: [ 3.9, "3.10" ]
-        python-version: [ 3.9 ]
     steps:
       - name: Checkout TA-Lib
         uses: actions/checkout@v3
