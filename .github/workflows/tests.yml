@@ -13,7 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest ]
+        #        os: [ubuntu-latest, macos-latest, windows-latest ]
+        os: [ windows-latest ]
         python-version: [ 3.7, 3.8, 3.9, "3.10" ]
     steps:
       - name: Checkout TA-Lib
@@ -75,8 +76,15 @@ jobs:
         run: |
           ls C:\ta-lib\c\lib
           ls C:\ta-lib\c\include
+          mkdir ta-lib
+          cp C:\ta-lib\c\include\defs.h ta-lib\ta_defs.h
+          cp C:\ta-lib\c\include\ta_common.h ta-lib\ta_common.h
+          cp C:\ta-lib\c\include\ta_func.h ta-lib\ta_func.h
+          cp C:\ta-lib\c\include\ta_libc.h ta-lib\ta_libc.h
+          ls ta-lib
           echo "TA_LIBRARY_PATH=C:\ta-lib\c\lib"  >> $env:GITHUB_ENV
           echo "TA_INCLUDE_PATH=C:\ta-lib\c\include"  >> $env:GITHUB_ENV
+
       - name: Check Win Environment
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
@@ -89,7 +97,7 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install tox tox-gh-actions
           python -m pip install --no-cache-dir  .[test]
-      
+
 
       - name: Lint with flake8
         run: |
