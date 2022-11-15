@@ -77,6 +77,7 @@ for path in library_dirs:
         if any(lib_talib_name in f for f in files):
             break
     except OSError:
+        print('Path not found: ', path)
         pass
 else:
     warnings.warn('Cannot find ta-lib library, installation may fail.')
