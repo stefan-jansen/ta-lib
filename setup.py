@@ -29,22 +29,22 @@ if any(s in sys.platform for s in ['darwin', 'linux', 'bsd', 'sunos']):
     print('Platform supported')
     platform_supported = True
     include_dirs = [
-        '/usr/include',
-        '/usr/local/include',
-        '/opt/include',
-        '/opt/local/include',
-        '/opt/homebrew/include',
-        '/opt/homebrew/opt/ta-lib/include',
+        '/usr/include/ta-lib',
+        '/usr/local/include/ta-lib',
+        '/opt/include/ta-lib',
+        '/opt/local/include/ta-lib',
+        '/opt/homebrew/include/ta-lib',
+        '/opt/homebrew/opt/ta-lib/include/ta-lib',
     ]
     library_dirs = [
-        '/usr/lib',
-        '/usr/local/lib',
-        '/usr/lib64',
-        '/usr/local/lib64',
-        '/opt/lib',
-        '/opt/local/lib',
-        '/opt/homebrew/lib',
-        '/opt/homebrew/opt/ta-lib/lib',
+        '/usr/lib/ta-lib',
+        '/usr/local/lib/ta-lib',
+        '/usr/lib64/ta-lib',
+        '/usr/local/lib64/ta-lib',
+        '/opt/lib/ta-lib',
+        '/opt/local/lib/ta-lib',
+        '/opt/homebrew/lib/ta-lib',
+        '/opt/homebrew/opt/ta-lib/lib/ta-lib',
     ]
 
 elif sys.platform == 'win32':
