@@ -1,6 +1,5 @@
 #cython: language_level=2
 
-# cdef extern from "ta-lib/ta_defs.h":
 cdef extern from "ta_defs.h":
     ctypedef int TA_RetCode
     TA_RetCode TA_SUCCESS = 0
@@ -84,7 +83,6 @@ cdef extern from "ta_defs.h":
     TA_CandleSettingType TA_Equal = 10
     TA_CandleSettingType TA_AllCandleSettings = 11
 
-# cdef extern from "ta-lib/ta_common.h":
 cdef extern from "ta_common.h":
     const char *TA_GetVersionString()
     const char *TA_GetVersionMajor()
@@ -110,7 +108,6 @@ cdef extern from "ta_common.h":
     TA_RetCode TA_Initialize()
     TA_RetCode TA_Shutdown()
 
-# cdef extern from "ta-lib/ta_abstract.h":
 cdef extern from "ta_abstract.h":
     TA_RetCode TA_GroupTableAlloc(TA_StringTable ** table)
     TA_RetCode TA_GroupTableFree(TA_StringTable *table)
@@ -197,7 +194,6 @@ cdef extern from "ta_abstract.h":
 
     char * TA_FunctionDescriptionXML()
 
-# cdef extern from "ta-lib/ta_func.h":
 cdef extern from "ta_func.h":
     TA_RetCode TA_ACOS(int startIdx, int endIdx, const double inReal[], int *outBegIdx, int *outNBElement,
                        double outReal[])
