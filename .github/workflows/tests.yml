@@ -77,7 +77,7 @@ jobs:
           ls C:\ta-lib\c\lib
           ls C:\ta-lib\c\include
           mkdir ta-lib
-          cp C:\ta-lib\c\include\defs.h ta-lib\ta_defs.h
+          cp C:\ta-lib\c\include\ta_defs.h ta-lib\ta_defs.h
           cp C:\ta-lib\c\include\ta_common.h ta-lib\ta_common.h
           cp C:\ta-lib\c\include\ta_func.h ta-lib\ta_func.h
           cp C:\ta-lib\c\include\ta_libc.h ta-lib\ta_libc.h
