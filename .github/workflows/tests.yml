@@ -74,8 +74,6 @@ jobs:
       - name: Check Win install
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-#          ls C:\ta-lib\c\lib
-#          ls C:\ta-lib\c\include
           cp C:\ta-lib\c\include\ta_defs.h ${{ github.workspace }}
           cp C:\ta-lib\c\include\ta_common.h ${{ github.workspace }}
           cp C:\ta-lib\c\include\ta_func.h ${{ github.workspace }}
