@@ -75,14 +75,13 @@ jobs:
       - name: Check Win install
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          cp C:\ta-lib\c\include\ta_defs.h ${{ github.workspace }}
-          cp C:\ta-lib\c\include\ta_common.h ${{ github.workspace }}
-          cp C:\ta-lib\c\include\ta_func.h ${{ github.workspace }}
-          cp C:\ta-lib\c\include\ta_libc.h ${{ github.workspace }}
-          ls ${{ github.workspace }}
+          mkdir ${{ github.workspace }}\ta-lib
+          cp C:\ta-lib\c\include\ta_defs.h ${{ github.workspace }}\ta-lib\
+          cp C:\ta-lib\c\include\ta_common.h ${{ github.workspace }}\ta-lib\
+          cp C:\ta-lib\c\include\ta_func.h ${{ github.workspace }}\ta-lib\
+          cp C:\ta-lib\c\include\ta_libc.h ${{ github.workspace }}\ta-lib\
+          ls ${{ github.workspace }}\ta-lib
           echo "${{ github.workspace }}" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          echo "C:\ta-lib\c\lib" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          echo "C:\ta-lib\c\include" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
       - name: Check Win Environment
         if: ${{ matrix.os == 'windows-latest' }}
