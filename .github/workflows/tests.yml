@@ -76,12 +76,12 @@ jobs:
         run: |
           ls C:\ta-lib\c\lib
           ls C:\ta-lib\c\include
-          mkdir ${{ github.workspace }}\ta-lib
-          cp C:\ta-lib\c\include\ta_defs.h ${{ github.workspace }}\ta-lib\ta_defs.h
-          cp C:\ta-lib\c\include\ta_common.h ${{ github.workspace }}\ta-lib\ta_common.h
-          cp C:\ta-lib\c\include\ta_func.h ${{ github.workspace }}\ta-lib\ta_func.h
-          cp C:\ta-lib\c\include\ta_libc.h ${{ github.workspace }}\ta-lib\ta_libc.h
-          ls ${{ github.workspace }}\ta-lib
+          mkdir ${{ github.workspace }}\ta-lib\
+          cp C:\ta-lib\c\include\ta_defs.h ${{ github.workspace }}\ta-lib\
+          cp C:\ta-lib\c\include\ta_common.h ${{ github.workspace }}\ta-lib\
+          cp C:\ta-lib\c\include\ta_func.h ${{ github.workspace }}\ta-lib\
+          cp C:\ta-lib\c\include\ta_libc.h ${{ github.workspace }}\ta-lib\
+          ls ${{ github.workspace }}\ta-lib\
           echo "TA_LIBRARY_PATH=C:\ta-lib\c\lib"  >> $env:GITHUB_ENV
           echo "TA_INCLUDE_PATH=C:\ta-lib\c\include"  >> $env:GITHUB_ENV
 
