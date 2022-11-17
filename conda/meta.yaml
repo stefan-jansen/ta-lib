@@ -20,6 +20,9 @@ requirements:
     - setuptools_scm
     - cython
     - numpy<1.23
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+
   run:
     - python
     - numpy <1.23
