@@ -21,7 +21,6 @@ requirements:
     - cython
     - numpy<1.23
     - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
 
   run:
     - python
