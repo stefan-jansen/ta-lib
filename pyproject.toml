@@ -4,24 +4,29 @@
 [build-system]
 requires = [
     'setuptools>=42.0.0',
+    'setuptools_scm[toml]>=3.4',
     'wheel>=0.36.0',
     'Cython>=0.29.21,<3',
     'oldest-supported-numpy; python_version>="3.7"',
 ]
 build-backend = 'setuptools.build_meta'
 
+[tool.setuptools_scm]
+write_to = "src/talib/_version.py"
+local_scheme = "no-local-version"
+
 [tool.cibuildwheel]
-skip = "*musllinux*"
-test-extras = "test"
-test-command = 'python -c "import talib; print(talib.__version__)"'
+skip = '*musllinux*'
+test-extras = 'test'
+test-command = 'pytest {project}/tests'
 build-verbosity = 3
 
 [tool.cibuildwheel.macos]
-archs = ["x86_64", "arm64", "universal2"]
-test-skip = ["*universal2:arm64"]
+archs = ['x86_64', 'arm64', 'universal2']
+test-skip = ['*universal2:arm64']
 
 [tool.cibuildwheel.linux]
-archs = ["auto64"]
+archs = ['auto64']
 
 [tool.black]
 line-length = 88

@@ -1,0 +1,158 @@
+name: PyPI
+
+on:
+  push:
+    branches:
+      - 'wheels'
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Package Index'
+        required: true
+        default: 'TESTPYPI'
+
+jobs:
+  build_linux:
+    name: Wheels for py${{ matrix.python }} on ${{ matrix.os }} using ${{ matrix.manylinux_image }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest ]
+        python: [ 37, 38, 39, '310' ]
+        manylinux_image: [ manylinux2010, manylinux2014 ]
+
+    steps:
+      - name: Checkout ta-lib
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Build and test wheels
+        uses: pypa/cibuildwheel@v2.11.2
+        env:
+          CIBW_BUILD: "cp${{ matrix.python }}-*"
+          CIBW_BEFORE_ALL_LINUX: >
+            ./tools/install_talib_ubuntu.sh
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v3
+        with:
+          path: wheelhouse/*.whl
+
+  build_macos:
+    name: Wheels for py${{ matrix.python }} on ${{ matrix.os }} for ${{ matrix.platform_id }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ macos-latest ]
+        python: [ 37, 38, 39, '310' ]
+        platform_id: [ macosx_x86_64, macosx_arm64 ]
+        exclude:
+          - os: macos-latest
+            python: 37
+            platform_id: macosx_arm64
+
+    steps:
+      - name: Checkout zipline
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.11.2
+        env:
+          CIBW_BUILD: "cp${{ matrix.python }}-${{ matrix.platform_id }}"
+          CIBW_SKIP: cp37-macosx_arm64
+          CIBW_ARCHS_MACOS: x86_64 arm64
+          CIBW_BEFORE_ALL_MACOS: >
+            brew install freetype pkg-config gcc openssl ta-lib
+      - name: Upload wheels
+        uses: actions/upload-artifact@v3
+        with:
+          path: wheelhouse/*.whl
+
+  build_windows:
+    name: Wheels for py${{ matrix.python }} on ${{ matrix.os }} for ${{ matrix.platform_id }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ windows-latest ]
+        python: [ 37, 38, 39, '310' ]
+        platform_id: [ win_amd64 ]
+
+    steps:
+      - name: Checkout TA-Lib
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Setup Windows Dev Environment
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.11.2
+        env:
+          CIBW_BUILD: "cp${{ matrix.python }}-${{ matrix.platform_id }}"
+          CIBW_BEFORE_ALL_WINDOWS: >
+            call "c:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" amd64 &&
+            call ./tools/install_talib.bat
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v3
+        with:
+          path: wheelhouse/*.whl
+
+  build_sdist:
+    name: Build source distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v4
+        name: Install Python
+        with:
+          python-version: '3.9'
+
+      - name: Build sdist
+        run: |
+          pip install -U pip setuptools build
+          python -m build --sdist
+
+      - uses: actions/upload-artifact@v3
+        with:
+          path: dist/*.tar.gz
+
+  upload_pypi:
+    needs: [ build_linux, build_macos, build_windows, build_sdist ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: artifact
+          path: dist
+
+      - name: publish to testpypi
+        uses: pypa/gh-action-pypi-publish@release/v1
+        if: ${{ github.event.inputs.target }} != 'PYPI'
+        with:
+          user: __token__
+          password: ${{ secrets.TESTPYPI_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
+
+      - name: publish to pypi
+        uses: pypa/gh-action-pypi-publish@release/v1
+        if: ${{ github.event.inputs.target }} == 'PYPI' || (github.event_name == 'release' && github.event.action == 'published')
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_TOKEN }}
