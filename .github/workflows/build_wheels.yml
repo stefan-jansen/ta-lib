@@ -1,9 +1,6 @@
 name: PyPI
 
 on:
-  push:
-    branches:
-      - 'wheels'
   workflow_dispatch:
     inputs:
       target:
@@ -144,7 +141,7 @@ jobs:
 
       - name: publish to testpypi
         uses: pypa/gh-action-pypi-publish@release/v1
-        if: ${{ github.event.inputs.target }} != 'PYPI'
+        if: ${{ github.event.inputs.target }} == 'TESTPYPI'
         with:
           user: __token__
           password: ${{ secrets.TESTPYPI_TOKEN }}
