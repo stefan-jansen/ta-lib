@@ -72,7 +72,7 @@ jobs:
           CIBW_SKIP: cp37-macosx_arm64
           CIBW_ARCHS_MACOS: x86_64 arm64
           CIBW_BEFORE_ALL_MACOS: >
-            brew install freetype pkg-config gcc openssl c-blosc hdf5 ta-lib
+            brew install freetype pkg-config gcc openssl ta-lib
       - name: Upload wheels
         uses: actions/upload-artifact@v3
         with:
