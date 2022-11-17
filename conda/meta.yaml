@@ -1,4 +1,4 @@
-{% set name = "TA-Lib-zipline" %}
+{% set name = "TA-lib-zipline" %}
 {% set version = "0.4.26" %}
 
 package:
