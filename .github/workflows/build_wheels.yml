@@ -134,7 +134,7 @@ jobs:
     needs: [ build_linux, build_macos, build_windows, build_sdist ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: artifact
           path: dist
