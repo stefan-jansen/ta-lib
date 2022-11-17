@@ -3,6 +3,7 @@
 import os
 import sys
 import warnings
+
 import setuptools_scm  # noqa: F401
 
 try:
@@ -76,6 +77,7 @@ for path in library_dirs:
     try:
         files = os.listdir(path)
         if any(lib_talib_name in f for f in files):
+            print('Library found: ', lib_talib_name, '|'.join([f for f in files if lib_talib_name in f]))
             break
     except OSError:
         print('Path not found: ', path)

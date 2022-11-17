@@ -4,7 +4,7 @@ on:
   workflow_dispatch
 
 jobs:
-  build_wheels:
+  build_conda:
     name: py${{ matrix.python }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     env:
@@ -35,6 +35,7 @@ jobs:
       - name: conda build for ${{ matrix.os }}
         run: |
           conda activate recipe
+          conda clean --all
           conda install -n recipe conda-build conda-verify anaconda-client
           conda-build --output-folder . --python ${{ matrix.python }} conda
 

@@ -1,6 +1,8 @@
 #!/bin/bash
 wget https://downloads.sourceforge.net/project/ta-lib/ta-lib/0.4.0/ta-lib-0.4.0-src.tar.gz &&
 tar xvfz ta-lib-0.4.0-src.tar.gz &&
+ls &&
+ls ta-lib &&
 pushd ta-lib &&
 ./configure --prefix=/usr &&
 sudo make &&
