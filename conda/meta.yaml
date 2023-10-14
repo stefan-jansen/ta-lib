@@ -1,4 +1,4 @@
-{% set name = "TA-Lib_zipline" %}
+{% set name = "TA-lib-zipline" %}
 {% set version = "0.4.26" %}
 
 package:
@@ -17,8 +17,12 @@ build:
 requirements:
   build:
     - python
+    - setuptools_scm
     - cython
     - numpy<1.23
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+
   run:
     - python
     - numpy <1.23

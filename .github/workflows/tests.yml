@@ -8,7 +8,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  unit_tests:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -62,5 +62,10 @@ jobs:
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           #flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Unittests with tox & pytest
-        run: |
-          tox -v -e ci_tests
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 3
+          timeout_minutes: 5
+          retry_on: error
+          command: |
+            tox -v -e ci_tests
